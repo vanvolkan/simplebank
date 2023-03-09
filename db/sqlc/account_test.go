@@ -11,9 +11,11 @@ import (
 )
 
 func createRandomAccount(t *testing.T) Account {
+	user := createRandomUser(t)
+
 	arg := CreateAccountParams{
-		Owner: util.RandomOwner(),
-		Balance: util.RandomMoney(),
+		Owner:    user.Username,
+		Balance:  util.RandomMoney(),
 		Currency: util.RandomCurrency(),
 	}
 
@@ -50,8 +52,8 @@ func TestGetAccount(t *testing.T) {
 
 func TestUpdateAccount(t *testing.T) {
 	account1 := createRandomAccount(t)
-	arg := UpdateAccountParams {
-		ID: account1.ID,
+	arg := UpdateAccountParams{
+		ID:      account1.ID,
 		Balance: util.RandomMoney(),
 	}
 
@@ -83,8 +85,8 @@ func TestListAccounts(t *testing.T) {
 		createRandomAccount(t)
 	}
 
-	arg := ListAccountsParams {
-		Limit: 5,
+	arg := ListAccountsParams{
+		Limit:  5,
 		Offset: 5,
 	}
 
@@ -97,4 +99,3 @@ func TestListAccounts(t *testing.T) {
 		require.NotEmpty(t, account)
 	}
 }
-
